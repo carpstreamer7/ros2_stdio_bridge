@@ -20,7 +20,8 @@ class StdinBridge(Node):
             msg.data = line.rstrip('\n')
             self.publisher.publish(msg)
 
-        # EOF を受けたら正常終了
+        # EOFで終了
+        self.destroy_node()
         rclpy.shutdown()
 
 
@@ -28,8 +29,4 @@ def main():
     rclpy.init()
     node = StdinBridge()
     node.run()
-
-
-if __name__ == '__main__':
-    main()
 
