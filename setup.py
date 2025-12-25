@@ -22,8 +22,10 @@ setup(
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': [
-            'stdin_bridge = ros2_stdio_bridge.stdin_bridge:main',
+    'console_scripts': [
+        'stdin_bridge = ros2_stdio_bridge.stdin_bridge:main',
+        'stdout_sink = ros2_stdio_bridge.stdout_sink:main',
+    
         ],
     },
 )
