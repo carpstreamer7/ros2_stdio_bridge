@@ -26,7 +26,8 @@ setup(
         ],
     },
     entry_points={
-        'console_scripts': [
-        ],
-    },
-)
+    'console_scripts': [
+        'stdin_bridge = ros2_stdio_bridge.stdin_bridge:main',
+    ],
+},
+
