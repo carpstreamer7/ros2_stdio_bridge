@@ -6,7 +6,7 @@ package_name = 'ros2_stdio_bridge'
 
 setup(
     name=package_name,
-    version='0.0.0',
+    version='0.0.1',
     packages=find_packages(exclude=['test']),
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -16,18 +16,15 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='yourname',
+    maintainer='Junko Morofuji',
     maintainer_email='mimosa4kai@gmail.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
-    extras_require={
-        'test': [
-            'pytest',
+    description='Bridge stdin to ROS 2 topic',
+    license='Apache-2.0',
+    tests_require=['pytest'],
+    entry_points={
+        'console_scripts': [
+            'stdin_bridge = ros2_stdio_bridge.stdin_bridge:main',
         ],
     },
-    entry_points={
-    'console_scripts': [
-        'stdin_bridge = ros2_stdio_bridge.stdin_bridge:main',
-    ],
-},
+)
 
