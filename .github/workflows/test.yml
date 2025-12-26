@@ -12,7 +12,7 @@ jobs:
 
       - name: build and test
         run: |
-          rsync -av ./ /root/ros2_ws/src/ros2_stdio_bridge/
+          rsync -av --exclude .git ./ /root/ros2_ws/src/ros2_stdio_bridge/
           cd /root/ros2_ws
           colcon build --packages-select ros2_stdio_bridge
           colcon test --packages-select ros2_stdio_bridge
