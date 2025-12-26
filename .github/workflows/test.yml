@@ -1,0 +1,19 @@
+name: test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    container: ryuichiueda/ubuntu22.04-ros2:latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: build and test
+        run: |
+          rsync -av ./ /root/ros2_ws/src/ros2_stdio_bridge/
+          cd /root/ros2_ws
+          colcon build --packages-select ros2_stdio_bridge
+          colcon test --packages-select ros2_stdio_bridge
+
