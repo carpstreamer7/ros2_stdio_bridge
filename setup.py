@@ -20,7 +20,7 @@ setup(
     zip_safe=True,
     maintainer='Junko Morofuji',
     maintainer_email='mimosa4kai@gmail.com',
-    description='標準入出力（stdin / stdout）をROS 2ノードとして扱うためのブリッジ'
+    description='標準入出力（stdin / stdout）をROS 2ノードとして扱うためのブリッジ',
     license='BSD-3-Clause',
     tests_require=['pytest'],
     entry_points={
