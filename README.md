@@ -5,8 +5,8 @@
 `ros2_stdio_bridge` は、標準入力（stdin）と標準出力（stdout）を ROS 2 トピックで接続する入出力ブリッジである。  
 ターミナルから入力した文字列を ROS 2 の topic として publish し、別ノードで subscribe して表示する。
 
+---
 ## 設計意図
-
 
 ### 1. OS 標準入出力と ROS 2 の橋渡し
 
@@ -30,8 +30,6 @@ ROS 2 が「外部システムとどのように連携できるか」を明確�
 
 これにより、publish と subscribe の役割が明確になっている。
 
-
----
 
 ### 3. launch による一括起動
 
@@ -83,8 +81,11 @@ source install/setup.bash
 ros2 launch ros2_stdio_bridge stdio_bridge.launch.py
 ```
 以下の 2 ノードが同時に起動する。
-	• stdin_bridge
-	• stdout_sink
+
+```text
+• stdin_bridge
+• stdout_sink
+```
 
 ###3. 動作確認
 起動したターミナルで文字列を入力し、Enter を押す。
@@ -95,6 +96,7 @@ hello
 
 ROS 2 トピックを経由して、同じ文字列が標準出力に表示される。
 
+```text
 hello
-
+```
 
