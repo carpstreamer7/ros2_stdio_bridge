@@ -87,7 +87,7 @@ ros2 launch ros2_stdio_bridge stdio_bridge.launch.py
 • stdout_sink
 ```
 
-###3. 動作確認
+### 3. 動作確認
 起動したターミナルで文字列を入力し、Enter を押す。
 
 ```text
