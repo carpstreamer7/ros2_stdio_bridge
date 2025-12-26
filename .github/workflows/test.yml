@@ -10,10 +10,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: build and test
+      - name: build
         run: |
           rsync -av --exclude .git ./ /root/ros2_ws/src/ros2_stdio_bridge/
           cd /root/ros2_ws
+          source /opt/ros/humble/setup.bash
           colcon build --packages-select ros2_stdio_bridge
+
+      - name: test
+        run: |
+          cd /root/ros2_ws
+          source /opt/ros/humble/setup.bash
+          source install/setup.bash
           colcon test --packages-select ros2_stdio_bridge
+          colcon test-result --verbose
 
