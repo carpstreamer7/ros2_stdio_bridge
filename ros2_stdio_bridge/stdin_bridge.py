@@ -29,4 +29,3 @@ def main():
     rclpy.init()
     node = StdinBridge()
     node.run()
-

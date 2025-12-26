@@ -2,8 +2,6 @@
 # SPDX-FileCopyrightText: 2025 Junko Morofuji
 # SPDX-License-Identifier: Apache-2.0
 
-import sys
-
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
@@ -34,4 +32,3 @@ def main():
     finally:
         node.destroy_node()
         rclpy.shutdown()
-
