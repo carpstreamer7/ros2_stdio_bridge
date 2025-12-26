@@ -29,3 +29,72 @@ ROS 2 が「外部システムとどのように連携できるか」を明確�
 | `stdout_sink` | トピックを subscribe し、内容を標準出力に表示 |
 
 これにより、publish と subscribe の役割が明確になっている。
+
+
+---
+
+### 3. launch による一括起動
+
+2 つのノードを同時に起動するため、launch ファイルを用意した。
+
+- 複数の `ros2 run` を手動で実行する必要がない
+- ROS 2 の標準的な運用方法に沿った実行が可能
+
+---
+
+## システム構成
+
+```text
+stdin (CLI)
+↓
+stdin_bridge
+↓ (ROS 2 topic: /stdin)
+stdout_sink
+↓
+stdout (CLI)
+```
+
+---
+## ディレクトリ構成
+
+```text
+ros2_stdio_bridge
+├── ros2_stdio_bridge
+│ ├── stdin_bridge.py
+│ └── stdout_sink.py
+├── launch
+│ └── stdio_bridge.launch.py
+├── package.xml
+├── setup.py
+└── README.md
+```
+
+---
+## 使用方法
+### 1. ビルド
+```bash
+cd ~/ros2_ws
+colcon build --packages-select ros2_stdio_bridge
+source install/setup.bash
+```
+
+### 2. 実行（launch）
+```bash
+ros2 launch ros2_stdio_bridge stdio_bridge.launch.py
+```
+以下の 2 ノードが同時に起動する。
+	• stdin_bridge
+	• stdout_sink
+
+###3. 動作確認
+起動したターミナルで文字列を入力し、Enter を押す。
+
+```text
+hello
+```
+
+ROS 2 トピックを経由して、同じ文字列が標準出力に表示される。
+
+hello
+
+
