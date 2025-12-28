@@ -7,7 +7,24 @@
 ターミナルから入力した文字列をROS2のトピックとしてパブリッシュし、別ノードでサブスクライブして表示する。
 
 ---
+## ノードとトピックの構成
 
+本パッケージには、以下の 2 つの ROS 2 ノードが含まれている。
+
+### ノード一覧
+
+| ノード名 | 機能 |
+|---|---|
+| `stdin_bridge` | 標準入力（stdin）から文字列を読み取り、ROS 2 トピック `/stdin` に `std_msgs/String` 型で publish する |
+| `stdout_sink` | トピック `/stdin` を subscribe し、受信した文字列を標準出力（stdout）に表示する |
+
+### 使用トピック
+
+| トピック名 | 型 | 説明 |
+|---|---|---|
+| `/stdin` | `std_msgs/String` | 標準入力から受け取った文字列を送信するためのトピック |
+
+---
 ## ダウンロード
 
 任意の作業ディレクトリで、以下のコマンドを実行する。
@@ -15,16 +32,6 @@
 ```bash
 cd ~/ros2_ws/src
 git clone https://github.com/carpstreamer7/ros2_stdio_bridge.git
-```
-
-## インストール（ビルド）
-
-ROS 2 ワークスペースのルートに移動し、ビルドを行う。
-
-```bash
-cd ~/ros2_ws
-colcon build --packages-select ros2_stdio_bridge
-source install/setup.bash
 ```
 
 ---
