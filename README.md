@@ -61,7 +61,7 @@ hello
 ```bash
 ros2 topic echo /stdin
 ```
-を実行する。
+を実行し確認する。
 
 ターミナル1で
 ```bash
@@ -78,12 +78,14 @@ data: aaa
 ## 必要なソフトウェア
 - Python
   - テスト済みバージョン: 3.7〜3.10
-
+---
 
 ## テスト環境
 - WSL
   - Ubuntu 22.04 LTS
+---
 
 ## ライセンス
 © 2025  Junko Morofuji
+
 本パッケージは BSD 3-Clause License のもとで公開されている。
