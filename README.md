@@ -1,102 +1,89 @@
 # ros2_stdio_bridge
 
+
 ## 概要
 
 `ros2_stdio_bridge` は、標準入力（stdin）と標準出力（stdout）を ROS 2 トピックで接続する入出力ブリッジである。  
-ターミナルから入力した文字列を ROS 2 の topic として publish し、別ノードで subscribe して表示する。
-
----
-## 設計意図
-
-### 1. OS 標準入出力と ROS 2 の橋渡し
-
-本パッケージでは
-
-- 標準入力（stdin）
-- 標準出力（stdout）
-
-という OS レベルの入出力を ROS 2 の通信に接続することで、
-ROS 2 が「外部システムとどのように連携できるか」を明確に示している。
-
-
-### 2. ノードの役割分離
-
-機能を以下の 2 ノードに分離して実装した。
-
-| ノード名 | 役割 |
-|---|---|
-| `stdin_bridge` | 標準入力を読み取り、`std_msgs/String` として publish |
-| `stdout_sink` | トピックを subscribe し、内容を標準出力に表示 |
-
-これにより、publish と subscribe の役割が明確になっている。
-
-
-### 3. launch による一括起動
-
-2 つのノードを同時に起動するため、launch ファイルを用意した。
-
-- 複数の `ros2 run` を手動で実行する必要がない
-- ROS 2 の標準的な運用方法に沿った実行が可能
+ターミナルから入力した文字列をROS2のトピックとしてパブリッシュし、別ノードでサブスクライブして表示する。
 
 ---
 
-## システム構成
+## ダウンロード
 
-```text
-stdin (CLI)
-↓
-stdin_bridge
-↓ (ROS 2 topic: /stdin)
-stdout_sink
-↓
-stdout (CLI)
+任意の作業ディレクトリで、以下のコマンドを実行する。
+
+```bash
+cd ~/ros2_ws/src
+git clone https://github.com/carpstreamer7/ros2_stdio_bridge.git
 ```
 
----
-## ディレクトリ構成
+## インストール（ビルド）
 
-```text
-ros2_stdio_bridge
-├── ros2_stdio_bridge
-│ ├── stdin_bridge.py
-│ └── stdout_sink.py
-├── launch
-│ └── stdio_bridge.launch.py
-├── package.xml
-├── setup.py
-└── README.md
-```
+ROS 2 ワークスペースのルートに移動し、ビルドを行う。
 
----
-## 使用方法
-### 1. ビルド
 ```bash
 cd ~/ros2_ws
 colcon build --packages-select ros2_stdio_bridge
 source install/setup.bash
 ```
 
-### 2. 実行（launch）
+---
+## 起動方法
+
+本パッケージは、標準入力を扱う特性上、
+ros2 run による個別起動を行う。
+
+ターミナル 1（標準入力 → publish）
 ```bash
-ros2 launch ros2_stdio_bridge stdio_bridge.launch.py
-```
-以下の 2 ノードが同時に起動する。
-
-```text
-• stdin_bridge
-• stdout_sink
+ros2 run ros2_stdio_bridge stdin_bridge
 ```
 
-### 3. 動作確認
-起動したターミナルで文字列を入力し、Enter を押す。
+ターミナル 2（subscribe → 標準出力）
+```bash
+ros2 run ros2_stdio_bridge stdout_sink
+```
 
+ターミナル 1 で文字列を入力し、Enter を押す。
+例:
 ```text
 hello
 ```
 
-ROS 2 トピックを経由して、同じ文字列が標準出力に表示される。
-
+ターミナル 2 に、以下のように同じ文字列が表示される。
+例:
 ```text
 hello
 ```
 
+## 動作確認
+
+データの受け渡しが正しく行われているかは、ターミナル3にて
+```bash
+ros2 topic echo /stdin
+```
+を実行する。
+
+ターミナル1で
+```bash
+aaa
+```
+を入力した場合、
+```text
+data: aaa
+```
+と表示される。
+
+---
+
+## 必要なソフトウェア
+- Python
+  - テスト済みバージョン: 3.7〜3.10
+
+
+## テスト環境
+- WSL
+  - Ubuntu 22.04 LTS
+
+## ライセンス
+© 2025  Junko Morofuji
+このソフトウェアパッケージは、3条項BSDライセンスの下、再頒布および使用が許可されます。
